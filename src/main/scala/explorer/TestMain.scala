@@ -1,0 +1,5 @@
+package explorer
+
+object TestMain {
+
+}

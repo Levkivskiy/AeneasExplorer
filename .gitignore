@@ -1,0 +1,24 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea
+target
+project/target
+project/project
+.blockchain
+ideatarget
+.target
+bin
+.cache
+.cache-main
+.cache-tests
+.classpath
+.project
+.tmpBin
+.factorypath
+.settings
+logs
+scalate
+.testcontainers*
+*iml
+scorex.log
+scorex-errors.log
+.DS_Store

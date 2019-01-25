@@ -1,0 +1,42 @@
+services:
+  aeneasgenesis:
+    build: .
+    container_name: luger08/aeneasgenesis
+#    hostname: postgresaura
+    ports:
+      - ${PORT}:5432
+    expose:
+      - "5432"
+    volumes:
+      - ${PGPATH}:/var/lib/postgresql/data
+      - ${SCRIPTS}:/scripts
+#    network_mode: ${NETWORK}
+    environment:
+      POSTGRES_PASSWORD: ${PGPASS}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${PGDB}
+  aura:
+    #hostname: aura
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    volumes:
+      - ${CONFIG_PATH}:/etc/aura/
+    container_name: aura
+    environment:
+      DBHOST: postgresaura
+      DBPWD: ${PGPASS}
+#      DBPORT: ${PORT}
+#      PGUSER: ${PGUSER}
+#      PGDB: ${PGDB}
+#      PGPASS: ${PGPASS}
+#      SERVICEPORT: ${SERVICEPORT}
+#      FIRSTSTART: ${FIRSTSTART}
+#       TODO rewrite config file
+    depends_on:
+      - postgresaura
+#    network_mode: ${NETWORK}
+version: "3"

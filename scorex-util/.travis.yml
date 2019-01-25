@@ -1,0 +1,27 @@
+sudo: true
+language: scala
+jdk:
+  - oraclejdk8
+branches:
+  only:
+    - master
+    - /^\d\.\d+$/
+scala:
+  - 2.12.3
+branches:
+  only:
+    - master
+    - /^\d\.\d+$/
+script:
+  - sbt test
+cache:
+  directories:
+  - "$HOME/.ivy2/cache"
+  - "$HOME/.sbt"
+after_success:
+  - "sbt publish"
+# These directories are cached to S3 at the end of the build
+before_cache:
+  # Cleanup the cached directories to avoid unnecessary cache updates
+  - find $HOME/.ivy2/cache -name "ivydata-*.properties" -print -delete
+  - find $HOME/.sbt        -name "*.lock"               -print -delete
